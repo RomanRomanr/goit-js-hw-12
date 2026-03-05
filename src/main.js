@@ -1,5 +1,5 @@
 import { getImagesByQuery } from "./js/pixabay-api.js";
-import { createGallery, clearGallery, showLoader, hideLoader, showLoadMoreButton, hideLoadMoreButton, disableLoadMoreButton, enableLoadMoreButton} from "./js/render-functions.js";
+import { createGallery, clearGallery, showLoader, hideLoader, showLoadMoreButton, hideLoadMoreButton} from "./js/render-functions.js";
 import iziToast from "izitoast";
 import 'izitoast/dist/css/iziToast.min.css';
 const form = document.querySelector(".form");
@@ -62,7 +62,7 @@ form.addEventListener("submit", async (e) => {
 
 LoadMoreBtn.addEventListener("click", async () => {
     currentPage += 1;
-    disableLoadMoreButton();
+    hideLoadMoreButton()
     showLoader();
 
     try {
@@ -77,7 +77,7 @@ LoadMoreBtn.addEventListener("click", async () => {
             });
         }
         else {
-            enableLoadMoreButton();
+            showLoadMoreButton();
         }
         
         const card = document.querySelector(".gallery-item");

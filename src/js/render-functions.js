@@ -13,13 +13,15 @@ export function hideLoadMoreButton() {
   loadMoreBtn.classList.add('is-hidden');
 }
 
-export function disableLoadMoreButton() {
-  loadMoreBtn.disabled = true;
-}
+// export function disableLoadMoreButton() {
+//   loadMoreBtn.disabled = true;
+  
+// }
 
-export function enableLoadMoreButton() {
-  loadMoreBtn.disabled = false;
-}
+// export function enableLoadMoreButton() {
+//   loadMoreBtn.disabled = false;
+  
+// }
 
 export const lightbox = new SimpleLightbox(".gallery a", {
     captionsData: "alt",
