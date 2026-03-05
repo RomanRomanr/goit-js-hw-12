@@ -2,6 +2,24 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 const gallery = document.querySelector(".gallery");
 const loader = document.querySelector(".loader");
+const loadMoreBtn = document.querySelector('.load-more');
+
+
+export function showLoadMoreButton() {
+  loadMoreBtn.classList.remove('is-hidden');
+}
+
+export function hideLoadMoreButton() {
+  loadMoreBtn.classList.add('is-hidden');
+}
+
+export function disableLoadMoreButton() {
+  loadMoreBtn.disabled = true;
+}
+
+export function enableLoadMoreButton() {
+  loadMoreBtn.disabled = false;
+}
 
 export const lightbox = new SimpleLightbox(".gallery a", {
     captionsData: "alt",

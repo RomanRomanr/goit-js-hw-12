@@ -1,5 +1,5 @@
 import { getImagesByQuery } from "./js/pixabay-api.js";
-import { createGallery, clearGallery, showLoader, hideLoader } from "./js/render-functions.js";
+import { createGallery, clearGallery, showLoader, hideLoader, showLoadMoreButton, hideLoadMoreButton, disableLoadMoreButton, enableLoadMoreButton} from "./js/render-functions.js";
 import iziToast from "izitoast";
 import 'izitoast/dist/css/iziToast.min.css';
 const form = document.querySelector(".form");
@@ -24,7 +24,7 @@ form.addEventListener("submit", async (e) => {
     currentQuerry = query;
     currentPage = 1;
     clearGallery();
-    LoadMoreBtn.classList.add("is-hidden");
+    hideLoadMoreButton();
     showLoader();
     
     try {
@@ -41,7 +41,13 @@ form.addEventListener("submit", async (e) => {
     
 
         if (totalHits > PER_PAGE) {
-            LoadMoreBtn.classList.remove("is-hidden");
+            showLoadMoreButton();
+        }
+        else {
+            iziToast.info({
+              message:
+                "We're sorry, but you've reached the end of search results.",
+            });
         }
     }
     catch (error) {
@@ -56,6 +62,7 @@ form.addEventListener("submit", async (e) => {
 
 LoadMoreBtn.addEventListener("click", async () => {
     currentPage += 1;
+    disableLoadMoreButton();
     showLoader();
 
     try {
@@ -64,10 +71,13 @@ LoadMoreBtn.addEventListener("click", async () => {
         const totalLoaded = currentPage * PER_PAGE;
 
         if (totalLoaded >= totalHits) {
-            LoadMoreBtn.classList.add("is-hidden");
-            iziToast.error({
+            hideLoadMoreButton();
+            iziToast.info({
                 message: "We're sorry, but you've reached the end of search results.",
             });
+        }
+        else {
+            enableLoadMoreButton();
         }
         
         const card = document.querySelector(".gallery-item");
